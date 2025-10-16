@@ -11,9 +11,11 @@
 
 #include "times.h"
 #include "sorting.h"
+
 #include "permutations.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 
 /***************************************************/
 /* Function: average_sorting_time Date:            */
@@ -25,6 +27,7 @@ short average_sorting_time(pfunc_sort metodo,
                               int N, 
                               PTIME_AA ptime)
 {
+
   int** array_perm;
   int start,stop,i,ob_current, ob_min=0, ob_max=0,time=0,ob_average=0;
   array_perm = generate_permutations(n_perms,N);
@@ -55,6 +58,7 @@ short average_sorting_time(pfunc_sort metodo,
   ptime->min_ob=ob_min;
   
   return OK;
+
 }
 
 /***************************************************/
@@ -66,6 +70,7 @@ short generate_sorting_times(pfunc_sort method, char* file,
                                 int num_min, int num_max, 
                                 int incr, int n_perms)
 {
+
   int i, num, n_times = (num_max - num_min)/incr + 1;
 
   PTIME_AA* ptimes;
@@ -89,6 +94,7 @@ short generate_sorting_times(pfunc_sort method, char* file,
 /***************************************************/
 short save_time_table(char* file, PTIME_AA ptime, int n_times)
 {
+
   int i;
   FILE *fp;
   fp = fopen(file,"a");
@@ -105,6 +111,7 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   fclose(fp);
   return OK;
   
+
 }
 
 

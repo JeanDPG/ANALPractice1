@@ -12,13 +12,32 @@
 
 #include "sorting.h"
 
+#include "extern.h"
+#include <stdlib.h> 
+
+
 /***************************************************/
 /* Function: InsertSort    Date:                   */
 /* Your comment                                    */
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
-  /* Your code */
+
+  int i = 0, j = 0, ob = 0;
+
+  for (i = ip + 1; i <= iu; i++)
+  {
+    j = i;
+    ob++;
+    while (j > ip && array[j-1] > array[j])
+    {
+      swap(&array[j], &array[j-1]);
+      j--;
+    }
+  }
+
+  return ob;
+
 }
 
 
@@ -28,11 +47,24 @@ int InsertSort(int* array, int ip, int iu)
 /***************************************************/
 int BubbleSort(int* array, int ip, int iu)
 {
-  /* Your code */
+
+  int flag = 1, i = iu, j = 0, ob = 0;
+
+  while (flag == 1 && i >= ip)
+  {
+    flag = 0;
+    for (j = ip; j < i; j++)
+    {
+      ob++;
+      if (array[j] > array[j+1])
+      {
+        swap(&array[j], &array[j+1]);
+        flag = 1;
+      }
+    }
+    i--;
+  }
+  
+  return ob;
 }
-
-
-
-
-
 
