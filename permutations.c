@@ -11,7 +11,9 @@
 
 
 #include "permutations.h"
+
 #include "extern.h"
+
 #include <stdlib.h>
 
 /***************************************************/
@@ -29,7 +31,9 @@
 /***************************************************/
 int random_num(int inf, int sup)
 {
-  return rand()/(RAND_MAX+1.)*(sup-inf+1)+inf;
+
+  return (int)floor(rand() / (RAND_MAX+1.) * (sup-inf+1) + inf);
+
 }
 
 /***************************************************/
@@ -47,6 +51,7 @@ int random_num(int inf, int sup)
 /***************************************************/
 int* generate_perm(int N)
 {
+
   int *perm;
   int j, r;
 
@@ -63,6 +68,7 @@ int* generate_perm(int N)
 
   return perm;
   free(perm);
+
 }
 
 /***************************************************/
@@ -82,5 +88,22 @@ int* generate_perm(int N)
 /***************************************************/
 int** generate_permutations(int n_perms, int N)
 {
-/* your code */
+
+   int** array;
+   int i,j;
+
+   if(!(array=(int**)malloc(n_perms*sizeof(int*))))return NULL;
+   for ( i = 0; i < n_perms; i++)
+   {
+    if(!(array[i]=generate_perm(N))){
+      for ( j = i-1; j >= 0; j--)
+      {
+        free(array[j]);
+      }
+      free(array);
+    return NULL;
+    }
+   }
+   return array;
+
 }
