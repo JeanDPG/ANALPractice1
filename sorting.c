@@ -11,7 +11,7 @@
 
 
 #include "sorting.h"
-
+#include <stdio.h>
 #include "extern.h"
 #include <stdlib.h> 
 
@@ -22,8 +22,8 @@
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
-
   int i = 0, j = 0, ob = 0;
+  if(!array ||ip>iu) return ERR;
 
   for (i = ip + 1; i <= iu; i++)
   {
@@ -35,7 +35,7 @@ int InsertSort(int* array, int ip, int iu)
       j--;
     }
   }
-
+  
   return ob;
 
 }
@@ -48,23 +48,34 @@ int InsertSort(int* array, int ip, int iu)
 int BubbleSort(int* array, int ip, int iu)
 {
 
-  int flag = 1, i = iu, j = 0, ob = 0;
-
+  int flag = 1, i = iu-1, j = 0, ob = 0;
+  
+  if(!array ||ip>iu){
+    return ERR;
+  }
+  
+  if(iu<2)return 0;
+  else{
   while (flag == 1 && i >= ip)
   {
     flag = 0;
+    fprintf(stderr, "ob1 = %d\n", ob);
+    fprintf(stderr, "ip=%d, i=%d\n", ip, i);
     for (j = ip; j < i; j++)
     {
       ob++;
+      fprintf(stderr, "ob2 = %d\n", ob);
       if (array[j] > array[j+1])
       {
         swap(&array[j], &array[j+1]);
         flag = 1;
       }
+      
     }
     i--;
   }
-  
+  fprintf(stderr, "ob3 = %d\n", ob);
   return ob;
+  }
 }
 

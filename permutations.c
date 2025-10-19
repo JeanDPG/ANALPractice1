@@ -13,9 +13,9 @@
 #include "permutations.h"
 
 #include "extern.h"
-
+#include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 /***************************************************/
 /* Function: random_num Date:                      */
 /* Authors:                                        */
@@ -32,7 +32,7 @@
 int random_num(int inf, int sup)
 {
 
-  return (int)floor(rand() / (RAND_MAX+1.) * (sup-inf+1) + inf);
+  return rand()/(RAND_MAX+1.) * (sup-inf+1) + inf;
 
 }
 
@@ -67,7 +67,6 @@ int* generate_perm(int N)
   }
 
   return perm;
-  free(perm);
 
 }
 
@@ -92,7 +91,11 @@ int** generate_permutations(int n_perms, int N)
    int** array;
    int i,j;
 
-   if(!(array=(int**)malloc(n_perms*sizeof(int*))))return NULL;
+   if(!(array=(int**)malloc(n_perms*sizeof(int*)))){
+
+        fprintf(stderr, "ERROR: malloc failed in generate_permutations(n_perms=%d, N=%d)\n", n_perms, N);
+        return NULL;
+    }
    for ( i = 0; i < n_perms; i++)
    {
     if(!(array[i]=generate_perm(N))){
