@@ -17,14 +17,28 @@
 
 
 /***************************************************/
-/* Function: InsertSort    Date:                   */
-/* Your comment                                    */
+/* Function: InsertSort Date: 10/10/2025           */
+/* Authors: Jose Luis Sanchez                      */
+/*                                                 */
+/* Function that implements the bubblesort         */
+/* algorithm                                       */
+/*                                                 */
+/* Input:                                          */
+/* int* array: pointer to an array of integers to  */
+/*             sort                                */
+/* int ip: index of the first element on the range */
+/*         to sort                                 */
+/* int iu: index of the last element on the range  */
+/*         to sort                                 */   
+/* Output:                                         */
+/* ERR: if there was a problem with prameters      */
+/* int: number of basic operations                 */
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
   int i = 0, j = 0, ob = 0;
   if(!array ||ip>iu) return ERR;
-
+  
   for (i = ip + 1; i <= iu; i++)
   {
     j = i;
@@ -35,47 +49,49 @@ int InsertSort(int* array, int ip, int iu)
       j--;
     }
   }
-  
   return ob;
-
 }
 
 
 /***************************************************/
-/* Function: SelectSort    Date:                   */
-/* Your comment                                    */
+/* Function: BubbleSort Date: 9/10/2025            */
+/* Authors: Jose Luis Sanchez                      */
+/*                                                 */
+/* Function that implements the bubblesort         */
+/* algorithm                                       */
+/*                                                 */
+/* Input:                                          */
+/* int* array: pointer to an array of integers to  */
+/*             sort                                */
+/* int ip: index of the first element on the range */
+/*         to sort                                 */
+/* int iu: index of the last element on the range  */
+/*         to sort                                 */   
+/* Output:                                         */
+/* ERR: if there was a problem with parameters     */
+/* int: number of basic operations                 */
 /***************************************************/
 int BubbleSort(int* array, int ip, int iu)
 {
-
   int flag = 1, i = iu-1, j = 0, ob = 0;
   
   if(!array ||ip>iu){
     return ERR;
   }
-  
-  if(iu<2)return 0;
-  else{
   while (flag == 1 && i >= ip)
   {
     flag = 0;
-    fprintf(stderr, "ob1 = %d\n", ob);
-    fprintf(stderr, "ip=%d, i=%d\n", ip, i);
     for (j = ip; j < i; j++)
     {
       ob++;
-      fprintf(stderr, "ob2 = %d\n", ob);
       if (array[j] > array[j+1])
       {
         swap(&array[j], &array[j+1]);
         flag = 1;
       }
-      
     }
     i--;
   }
-  fprintf(stderr, "ob3 = %d\n", ob);
   return ob;
-  }
 }
 

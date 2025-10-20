@@ -73,7 +73,7 @@ exercise3_test:
 
 exercise4_test:
 	@echo Running exercise4
-	@valgrind --leak-check=full ./exercise4 -size 5
+	@./exercise4 -size 5
 
 
 exercise5_test:

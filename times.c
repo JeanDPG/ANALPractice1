@@ -18,9 +18,22 @@
 
 
 /***************************************************/
-/* Function: average_sorting_time Date:            */
+/* Function: average_sorting_time Date: 10/10/2025 */
+/* Authors: Jean del Pozo                          */
 /*                                                 */
-/* Your documentation                              */
+/* Function that fills the fields of the structure */
+/* by computing times and means obtained by the    */
+/* sorting function                                */
+/*                                                 */
+/* Input:                                          */
+/* pfunc_sort metodo: pointer to a sorting function*/
+/* int n_perms: number of permutations             */
+/* int N: number of elements of the permutation    */
+/* PTIME_AA ptime: pointer to a time_aa structure  */   
+/* Output:                                         */
+/* ERR: if there was a problem whit the prameters  */
+/* OK: if everything was stored in the structure   */
+/*     ptime                                       */   
 /***************************************************/
 short average_sorting_time(pfunc_sort metodo, 
                               int n_perms,
@@ -29,7 +42,7 @@ short average_sorting_time(pfunc_sort metodo,
 {
 
   int** array_perm;
-  int start,stop,i,j,ob_current, ob_min=0, ob_max=0,time=0,ob_average=0;
+  int start,stop,i,ob_current, ob_min=0, ob_max=0,time=0,ob_average=0;
   array_perm = generate_permutations(n_perms,N);
   
     
@@ -70,9 +83,27 @@ short average_sorting_time(pfunc_sort metodo,
 }
 
 /***************************************************/
-/* Function: generate_sorting_times Date:          */
+/* Function: generate_sorting_times Date:13/10/2025*/
+/* Authors: Jean del Pozo                          */
 /*                                                 */
-/* Your documentation                              */
+/* Function that pases each structure of the array */
+/* to the function average_sorting_time to fill    */
+/* the fields. Then pases the pointer of the array */ 
+/* of structures to save_time_table that will      */
+/*                                                 */
+/* Input:                                          */
+/* pfunc_sort metodo: pointer to a sorting function*/
+/* char* file: file used by save_time_table        */
+/* int num_min: minimum number of elements to sort */
+/* int num_max: maximum number of elements to sort */ 
+/* int incr: step to increase the number of        */
+/*           elements to sort                      */  
+/* int n_perms: number of permutations             */
+/* Output:                                         */
+/* ERR: if there were problems with parameters or  */
+/* mallocs                                         */
+/* OK: if the function called saved_time_table to  */
+/*     wirte                                       */   
 /***************************************************/
 short generate_sorting_times(pfunc_sort method, char* file, 
                                 int num_min, int num_max, 
@@ -102,9 +133,20 @@ short generate_sorting_times(pfunc_sort method, char* file,
 }
 
 /***************************************************/
-/* Function: save_time_table Date:                 */
+/* Function: save_time_table Date: 12/10/2025      */
+/* Authors: Jean del Pozo                          */
 /*                                                 */
-/* Your documentation                              */
+/* Function that implements the bubblesort         */
+/* algorithm                                       */
+/*                                                 */
+/* Input:                                          */
+/* char* file: file to write values                */
+/* PTIME_AA ptime: pointer to an array of          */
+/*                 structures                      */
+/* int n_times: number of elements in the array    */   
+/* Output:                                         */
+/* ERR: if there was a problem opening the file    */
+/* OK: if writing was succesfully done             */
 /***************************************************/
 short save_time_table(char* file, PTIME_AA ptime, int n_times)
 {
@@ -125,7 +167,6 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   }
   fclose(fp);
   return OK;
-  
 
 }
 
