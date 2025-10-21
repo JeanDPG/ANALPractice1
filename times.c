@@ -42,7 +42,8 @@ short average_sorting_time(pfunc_sort metodo,
 {
 
   int** array_perm;
-  int start,stop,i,ob_current, ob_min=0, ob_max=0,time=0,ob_average=0;
+  int start,stop,i,ob_current, ob_min=0, ob_max=0;
+  double time=0, ob_average=0;
   array_perm = generate_permutations(n_perms,N);
   
     
@@ -53,9 +54,9 @@ short average_sorting_time(pfunc_sort metodo,
   for ( i = 0; i < n_perms; i++)
   {
     start=clock();
-    ob_current=metodo(array_perm[i],0,N);
+    ob_current=metodo(array_perm[i],0,N-1);
     stop=clock();
-    time+=stop-start;
+    time+=((double)(stop - start)) / CLOCKS_PER_SEC;
     ob_average+=ob_current;
     
     if (i == 0) {            
@@ -120,7 +121,7 @@ short generate_sorting_times(pfunc_sort method, char* file,
   for ( num = num_min, i = 0; num <= num_max; i++, num += incr)
   {
     if(average_sorting_time(method,n_perms,num,&ptimes[i])!=OK){
-      fprintf(stderr, "generate_sorting_times returned NULL (n_perms=%d, num=%d)\n", n_perms, num);
+      
       free(ptimes);
       return ERR;
     }

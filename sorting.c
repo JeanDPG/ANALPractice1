@@ -20,7 +20,7 @@
 /* Function: InsertSort Date: 10/10/2025           */
 /* Authors: Jose Luis Sanchez                      */
 /*                                                 */
-/* Function that implements the bubblesort         */
+/* Function that implements the insertsort         */
 /* algorithm                                       */
 /*                                                 */
 /* Input:                                          */
@@ -36,18 +36,25 @@
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
-  int i = 0, j = 0, ob = 0;
+  int i = 0, j = 0, ob = 0, key;
   if(!array ||ip>iu) return ERR;
   
   for (i = ip + 1; i <= iu; i++)
   {
-    j = i;
-    ob++;
-    while (j > ip && array[j-1] > array[j])
+    j = i-1;
+    key= array[i];
+    
+    while (j >= ip)
     {
-      swap(&array[j], &array[j-1]);
-      j--;
+      ob++;
+      if (array[j] > key){
+        array[j + 1] = array[j];
+        j--;
+      }else{
+        break;
+      }
     }
+    array[j+1] = key;
   }
   return ob;
 }
@@ -73,7 +80,7 @@ int InsertSort(int* array, int ip, int iu)
 /***************************************************/
 int BubbleSort(int* array, int ip, int iu)
 {
-  int flag = 1, i = iu-1, j = 0, ob = 0;
+  int flag = 1, i = iu, j = 0, ob = 0;
   
   if(!array ||ip>iu){
     return ERR;
