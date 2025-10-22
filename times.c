@@ -155,11 +155,11 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   int i;
   FILE *fp;
   
-  fp = fopen(file,"a");
+  fp = fopen(file,"w");
   if(fp==NULL)return ERR;
   for ( i = 0; i < n_times; i++)
   {
-    fprintf(fp, "%d\t%.3f\t%.3f\t%.3d\t%.3d\n", 
+    fprintf(fp, "%d\t%.8f\t%.3f\t%.3d\t%.3d\n", 
                 ptime[i].N, 
                 ptime[i].time, 
                 ptime[i].average_ob,
