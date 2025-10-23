@@ -11,45 +11,80 @@
 
 
 #include "sorting.h"
-
+#include <stdio.h>
 #include "extern.h"
 #include <stdlib.h> 
 
 
 /***************************************************/
-/* Function: InsertSort    Date:                   */
-/* Your comment                                    */
+/* Function: InsertSort Date: 10/10/2025           */
+/* Authors: Jose Luis Sanchez                      */
+/*                                                 */
+/* Function that implements the insertsort         */
+/* algorithm                                       */
+/*                                                 */
+/* Input:                                          */
+/* int* array: pointer to an array of integers to  */
+/*             sort                                */
+/* int ip: index of the first element on the range */
+/*         to sort                                 */
+/* int iu: index of the last element on the range  */
+/*         to sort                                 */   
+/* Output:                                         */
+/* ERR: if there was a problem with prameters      */
+/* int: number of basic operations                 */
 /***************************************************/
 int InsertSort(int* array, int ip, int iu)
 {
-
-  int i = 0, j = 0, ob = 0;
-
+  int i = 0, j = 0, ob = 0, key;
+  if(!array ||ip>iu) return ERR;
+  
   for (i = ip + 1; i <= iu; i++)
   {
-    j = i;
-    ob++;
-    while (j > ip && array[j-1] > array[j])
+    j = i-1;
+    key= array[i];
+    
+    while (j >= ip)
     {
-      swap(&array[j], &array[j-1]);
-      j--;
+      ob++;
+      if (array[j] > key){
+        array[j + 1] = array[j];
+        j--;
+      }else{
+        break;
+      }
     }
+    array[j+1] = key;
   }
-
   return ob;
-
 }
 
 
 /***************************************************/
-/* Function: SelectSort    Date:                   */
-/* Your comment                                    */
+/* Function: BubbleSort Date: 9/10/2025            */
+/* Authors: Jose Luis Sanchez                      */
+/*                                                 */
+/* Function that implements the bubblesort         */
+/* algorithm                                       */
+/*                                                 */
+/* Input:                                          */
+/* int* array: pointer to an array of integers to  */
+/*             sort                                */
+/* int ip: index of the first element on the range */
+/*         to sort                                 */
+/* int iu: index of the last element on the range  */
+/*         to sort                                 */   
+/* Output:                                         */
+/* ERR: if there was a problem with parameters     */
+/* int: number of basic operations                 */
 /***************************************************/
 int BubbleSort(int* array, int ip, int iu)
 {
-
   int flag = 1, i = iu, j = 0, ob = 0;
-
+  
+  if(!array ||ip>iu){
+    return ERR;
+  }
   while (flag == 1 && i >= ip)
   {
     flag = 0;
@@ -64,7 +99,6 @@ int BubbleSort(int* array, int ip, int iu)
     }
     i--;
   }
-  
   return ob;
 }
 

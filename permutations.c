@@ -13,12 +13,12 @@
 #include "permutations.h"
 
 #include "extern.h"
-
+#include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 /***************************************************/
-/* Function: random_num Date:                      */
-/* Authors:                                        */
+/* Function: random_num Date: 26/09/2025           */
+/* Authors: Jean del Pozo                          */
 /*                                                 */
 /* Rutine that generates a random number           */
 /* between two given numbers                       */
@@ -32,13 +32,13 @@
 int random_num(int inf, int sup)
 {
 
-  return (int)floor(rand() / (RAND_MAX+1.) * (sup-inf+1) + inf);
+  return rand()/(RAND_MAX+1.) * (sup-inf+1) + inf;
 
 }
 
 /***************************************************/
-/* Function: generate_perm Date:                   */
-/* Authors:                                        */
+/* Function: generate_perm Date: 27/09/2025        */
+/* Authors: Jose Luis Sanchez                      */
 /*                                                 */
 /* Rutine that generates a random permutation      */
 /*                                                 */
@@ -67,13 +67,12 @@ int* generate_perm(int N)
   }
 
   return perm;
-  free(perm);
 
 }
 
 /***************************************************/
-/* Function: generate_permutations Date:           */
-/* Authors:                                        */
+/* Function: generate_permutations Date:30/09/2025 */
+/* Authors: Jean del Pozo                          */
 /*                                                 */
 /* Function that generates n_perms random          */
 /* permutations with N elements                    */
@@ -92,7 +91,9 @@ int** generate_permutations(int n_perms, int N)
    int** array;
    int i,j;
 
-   if(!(array=(int**)malloc(n_perms*sizeof(int*))))return NULL;
+   if(!(array=(int**)malloc(n_perms*sizeof(int*)))){
+       return NULL;
+    }
    for ( i = 0; i < n_perms; i++)
    {
     if(!(array[i]=generate_perm(N))){
