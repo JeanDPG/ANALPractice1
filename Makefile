@@ -3,7 +3,9 @@
 # It is assumed that the name of the source files is exercise1.c, exercise2.c,...,exercise.h
 #-----------------------
 
-CC = gcc -ansi -pedantic
+
+CC = gcc -g -ansi -pedantic
+
 CFLAGS = -Wall
 EXE = exercise1 exercise2 exercise3 exercise4 exercise5
 
@@ -13,26 +15,33 @@ all : $(EXE)
 clean :
 	rm -f *.o core $(EXE)
 
+
 $(EXE) : % : %.o sorting.o permutations.o times.o extern.o
+
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
+
 	$(CC) $(CFLAGS) -o $@ $@.o sorting.o permutations.o times.o extern.o
 
 permutations.o : permutations.c permutations.h extern.h
+
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -c $<
 
+
 sorting.o : sorting.c sorting.h extern.h
+
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
 	@echo "# Has changed $<"
 	$(CC) $(CFLAGS) -c $<
+
 
 extern.o : extern.c extern.h
 	@echo "#---------------------------"
@@ -42,6 +51,7 @@ extern.o : extern.c extern.h
 	$(CC) $(CFLAGS) -c $<
 
 times.o : times.c times.h
+
 	@echo "#---------------------------"
 	@echo "# Generating $@ "
 	@echo "# Depepends on $^"
@@ -58,11 +68,13 @@ exercise2_test:
 
 exercise3_test:
 	@echo Running exercise3
+
 	@./exercise3 -size 5 -numP 5
 
 exercise4_test:
 	@echo Running exercise4
-	@valgrind --leak-check=full ./exercise4 -size 5
+	@./exercise4 -size 5
+
 
 exercise5_test:
 	@echo Running exercise5
