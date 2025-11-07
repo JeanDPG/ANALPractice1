@@ -106,70 +106,86 @@ int BubbleSort(int* array, int ip, int iu)
 
 
 int quicksort(int* tabla, int ip, int iu){
-  int m, pos;
+  int pos, ob=0;
   
   if(ip > iu) return ERR;
   else if(ip == iu) return OK;
   else{
-    m = partition(tabla, ip, iu, &pos);
-    if(ip < m-1){
-      quicksort(tabla, ip, m-1);
+    partition(tabla, ip, iu, &pos);
+    if(ip < pos-1){
+    ob += quicksort(tabla, ip, pos-1);
     }
-    else if( m+1 < iu){
-      quicksort(tabla, m+1, iu);
+    if( pos+1 < iu){
+    ob +=  quicksort(tabla, pos+1, iu);
     }
   }
-  return OK;
+  return ob;
 }
 
 
-int partition(int* tabla, int ip, int iu,int *pos){
-  int m, k, i;
-  m = median(tabla, ip, iu, pos);
-  k = *pos;
-  swap(&tabla[ip], &tabla[m]);
+int partition(int* tabla, int ip, int iu, int *pos){
+  int m, k, i, ob = 0;
+  ob += median_stat(tabla, ip, iu, pos);
+  k = tabla[*pos];
+  swap(&tabla[ip], &tabla[*pos]);
   m = ip;
 
-  for (i = ip+1; i < iu; i++)
+  for (i = ip+1; i <= iu; i++)
   {
+      ob++;
       if(tabla[i] < k){
         m++;
         swap(&tabla[i], &tabla[m]);
       }
   }
   swap(&tabla[ip], &tabla[m]);
-  return m;
+  *pos = m;
+  return ob;
 }
 
 int median(int *tabla, int ip, int iu,int *pos){
+  if(!tabla || ip>iu || !pos)return ERR;
   *pos = ip;
   return 0;
 }
 
 int median_avg(int *tabla, int ip, int iu, int *pos){
-  
-  return (ip + iu)/2;
+  if(!tabla || ip>iu || !pos)return ERR;
+  *pos = (ip + iu)/2;
+  return 0;
 }
 
 int median_stat(int *tabla, int ip, int iu, int *pos){
+    int ob = 0;
+    ob++;
     if(tabla[ip] > tabla[iu]){
-      if(tabla[*pos] > tabla[ip]){
-        return ip;
+       ob++;
+      if(tabla[(ip+ iu)/2] > tabla[ip]){
+        *pos = ip;
+        return ob;
       }else{
-        if(tabla[iu] > tabla[*pos]){
-          return iu;
+         ob++;
+        if(tabla[iu] > tabla[(ip+ iu)/2]){
+          *pos = iu;
+          return ob;
         }else{
-          return *pos;
+          *pos = (ip+ iu)/2;
+          return ob;
         }
       }
     }else{
-      if(tabla[*pos] > tabla[iu]){
-        return *pos;
+       ob++;
+      if(tabla[(ip+ iu)/2 ] > tabla[iu]){
+        *pos = (ip+ iu)/2;
+        return ob;
       }else{
-        if(tabla[ip] > tabla[*pos]){
-          return iu;
+        ob++;
+        if(tabla[ip] > tabla[(ip+ iu)/2 ]){
+          *pos = iu;
+          return ob;
         }else{
-          return *pos;
+          *pos = (ip+ iu)/2;
+          return ob;
         }
       }
     }
@@ -178,14 +194,15 @@ int median_stat(int *tabla, int ip, int iu, int *pos){
 
 
 int mergesort(int* tabla, int ip, int iu){
-  int m;
+  int m, ob=0;
   if(ip > iu) return ERR;
   else if(ip == iu) return OK;
   else{
     m = (int)floor((ip + iu)/2);
     mergesort(tabla, ip, m);
     mergesort(tabla,  m + 1, iu);
-    return merge(tabla, ip, iu,m );
+    ob += merge(tabla, ip, iu,m );
+    return ob;
   }
 
 }
@@ -193,11 +210,10 @@ int mergesort(int* tabla, int ip, int iu){
 
 
 int merge(int* tabla, int ip, int iu, int imedio){
-  int *aux, i,j,k, ob = 1;
+  int *aux, i,j,k=0, ob = 0;
   if(!(aux = (int*)malloc((iu - ip + 1) * sizeof(int)))){
     return ERR;
   }
-  k = 0;
   
   for ( i = ip, j = imedio + 1; i <= imedio && j <= iu; k++)
   {
@@ -224,7 +240,7 @@ int merge(int* tabla, int ip, int iu, int imedio){
       }
   }
 
-  memcpy(&tabla[ip], aux, (iu - ip +1) * sizeof(int));
+  memcpy(&tabla[ip], aux, (iu - ip + 1) * sizeof(int));
 
   
   free(aux);

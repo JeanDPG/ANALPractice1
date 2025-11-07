@@ -50,13 +50,13 @@ short average_sorting_time(pfunc_sort metodo,
  
   ptime->N=N;
   ptime->n_elems=n_perms;
- 
+  start=clock();
   for ( i = 0; i < n_perms; i++)
   {
-    start=clock();
+    
     ob_current=metodo(array_perm[i],0,N-1);
-    stop=clock();
-    time+=((double)(stop - start)) / CLOCKS_PER_SEC;
+    
+    
     ob_average+=ob_current;
     
     if (i == 0) {            
@@ -67,7 +67,8 @@ short average_sorting_time(pfunc_sort metodo,
         if (ob_current > ob_max) ob_max = ob_current;
     }
   }
-  
+  stop=clock();
+  time+=((double)(stop - start)) / CLOCKS_PER_SEC;
   ptime->time=(time+0.)/n_perms;
   ptime->average_ob=ob_average/n_perms;
   ptime->max_ob=ob_max;
@@ -121,13 +122,12 @@ short generate_sorting_times(pfunc_sort method, char* file,
   for ( num = num_min, i = 0; num <= num_max; i++, num += incr)
   {
     if(average_sorting_time(method,n_perms,num,&ptimes[i])!=OK){
-      
       free(ptimes);
       return ERR;
     }
   }
   
-  save_time_table(file, ptimes, n_times);
+  if(!save_time_table(file, ptimes, n_times))return ERR;
   
   free(ptimes);
   return OK;
