@@ -111,7 +111,7 @@ int quicksort(int* tabla, int ip, int iu){
   if(ip > iu) return ERR;
   else if(ip == iu) return OK;
   else{
-    partition(tabla, ip, iu, &pos);
+    ob += partition(tabla, ip, iu, &pos);
     if(ip < pos-1){
     ob += quicksort(tabla, ip, pos-1);
     }

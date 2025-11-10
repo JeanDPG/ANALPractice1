@@ -52,11 +52,8 @@ short average_sorting_time(pfunc_sort metodo,
   ptime->n_elems=n_perms;
   start=clock();
   for ( i = 0; i < n_perms; i++)
-  {
-    
+  {  
     ob_current=metodo(array_perm[i],0,N-1);
-    
-    
     ob_average+=ob_current;
     
     if (i == 0) {            
@@ -113,12 +110,12 @@ short generate_sorting_times(pfunc_sort method, char* file,
 {
 
   int i, num, n_times = (num_max - num_min)/incr + 1;
-  
   PTIME_AA ptimes;
+
   if(!(ptimes=malloc(sizeof(ptimes[0])*n_times))){
     return ERR;
   }
-  
+
   for ( num = num_min, i = 0; num <= num_max; i++, num += incr)
   {
     if(average_sorting_time(method,n_perms,num,&ptimes[i])!=OK){
@@ -127,7 +124,9 @@ short generate_sorting_times(pfunc_sort method, char* file,
     }
   }
   
-  if(!save_time_table(file, ptimes, n_times))return ERR;
+  if(!save_time_table(file, ptimes, n_times))
+    free(ptimes);
+  return ERR;
   
   free(ptimes);
   return OK;
