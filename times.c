@@ -124,10 +124,11 @@ short generate_sorting_times(pfunc_sort method, char* file,
     }
   }
   
-  if(!save_time_table(file, ptimes, n_times))
+  if(save_time_table(file, ptimes, n_times)!= OK){
     free(ptimes);
-  return ERR;
-  
+    return ERR;
+  }
+
   free(ptimes);
   return OK;
 }
